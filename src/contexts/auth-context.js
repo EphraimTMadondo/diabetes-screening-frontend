@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useReducer, useRef } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 const HANDLERS = {
   INITIALIZE: 'INITIALIZE',
@@ -127,32 +128,42 @@ export const AuthProvider = (props) => {
     });
   };
 
-  const signIn = async (email, password) => {
-    if (email !== 'demo@devias.io' || password !== 'Password123!') {
-      throw new Error('Please check your email and password');
-    }
-
+  const signIn = async (username, password) => {
     try {
+      const response = await axios.post('http://localhost:9000/api/v1/auth/signin', {
+        username: username,
+        password
+      });
+      const user = {
+        id: response.data.id,
+        avatar: '/assets/avatars/avatar-anika-visser.png',
+        name: 'Same User',
+        email: response.data.email,
+        roles: response.data.roles
+      };
       window.sessionStorage.setItem('authenticated', 'true');
-    } catch (err) {
-      console.error(err);
+      window.sessionStorage.setItem('token', response.data.token);
+      dispatch({
+        type: HANDLERS.SIGN_IN,
+        payload: user
+      });
+    } catch (error) {
+      throw new Error('Login failed! ' + error.message);
     }
-
-    const user = {
-      id: '5e86809283e28b96d2d38537',
-      avatar: '/assets/avatars/avatar-anika-visser.png',
-      name: 'Anika Visser',
-      email: 'anika.visser@devias.io'
-    };
-
-    dispatch({
-      type: HANDLERS.SIGN_IN,
-      payload: user
-    });
   };
 
-  const signUp = async (email, name, password) => {
-    throw new Error('Sign up is not implemented');
+  const signUp = async (email, username, password) => {
+    try {
+      const response = await axios.post('http://localhost:9000/api/v1/auth/signup', {
+        username,
+        email,
+        password,
+        roles: ["admin"]
+      });
+      await signIn(username, password);
+    } catch (error) {
+      throw new Error('Login failed! ' + error.message);
+    }
   };
 
   const signOut = () => {

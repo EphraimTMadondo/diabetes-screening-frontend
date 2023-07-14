@@ -10,6 +10,7 @@ import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { CustomersTable } from 'src/sections/customer/customers-table';
 import { CustomersSearch } from 'src/sections/customer/customers-search';
 import { applyPagination } from 'src/utils/apply-pagination';
+import axios from "axios";
 
 const now = new Date();
 
@@ -156,7 +157,15 @@ const data = [
   }
 ];
 
-const useCustomers = (page, rowsPerPage) => {
+const useCustomers = async (page, rowsPerPage) => {
+  let data = [];
+
+  try {
+    const result = await axios.get("localhost:9000/api/v1/contacts");
+    data = result.data;
+  } catch (error) {
+    console.log(error);
+  }
   return useMemo(
     () => {
       return applyPagination(data, page, rowsPerPage);
@@ -168,7 +177,7 @@ const useCustomers = (page, rowsPerPage) => {
 const useCustomerIds = (customers) => {
   return useMemo(
     () => {
-      return customers.map((customer) => customer.id);
+      return [].map((customer) => customer.id);
     },
     [customers]
   );
@@ -199,7 +208,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Customers | Devias Kit
+          Contacts | Zim-TTECH
         </title>
       </Head>
       <Box
@@ -218,7 +227,7 @@ const Page = () => {
             >
               <Stack spacing={1}>
                 <Typography variant="h4">
-                  Customers
+                  Contacts
                 </Typography>
                 <Stack
                   alignItems="center"

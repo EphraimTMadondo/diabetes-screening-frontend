@@ -71,13 +71,13 @@ export const SideNav = (props) => {
                 color="inherit"
                 variant="subtitle1"
               >
-                Devias
+                Zim-TTECH DSS
               </Typography>
               <Typography
                 color="neutral.400"
                 variant="body2"
               >
-                Production
+                Dev
               </Typography>
             </div>
             <SvgIcon
@@ -140,7 +140,7 @@ export const SideNav = (props) => {
             color="neutral.500"
             variant="body2"
           >
-            Check out our Pro solution template.
+            More features are in development.
           </Typography>
           <Box
             sx={{
@@ -158,21 +158,6 @@ export const SideNav = (props) => {
               src="/assets/devias-kit-pro.png"
             />
           </Box>
-          <Button
-            component="a"
-            endIcon={(
-              <SvgIcon fontSize="small">
-                <ArrowTopRightOnSquareIcon />
-              </SvgIcon>
-            )}
-            fullWidth
-            href="https://material-kit-pro-react.devias.io/"
-            sx={{ mt: 2 }}
-            target="_blank"
-            variant="contained"
-          >
-            Pro Live Preview
-          </Button>
         </Box>
       </Box>
     </Scrollbar>

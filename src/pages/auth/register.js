@@ -13,7 +13,7 @@ const Page = () => {
   const formik = useFormik({
     initialValues: {
       email: '',
-      name: '',
+      username: '',
       password: '',
       submit: null
     },
@@ -26,7 +26,7 @@ const Page = () => {
       name: Yup
         .string()
         .max(255)
-        .required('Name is required'),
+        .required('Username is required'),
       password: Yup
         .string()
         .max(255)
@@ -34,7 +34,7 @@ const Page = () => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        await auth.signUp(values.email, values.name, values.password);
+        await auth.signUp(values.email, values.username, values.password);
         router.push('/');
       } catch (err) {
         helpers.setStatus({ success: false });
@@ -48,7 +48,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Register | Devias Kit
+          Register | ZimTTECH DSS
         </title>
       </Head>
       <Box
@@ -100,8 +100,8 @@ const Page = () => {
                   error={!!(formik.touched.name && formik.errors.name)}
                   fullWidth
                   helperText={formik.touched.name && formik.errors.name}
-                  label="Name"
-                  name="name"
+                  label="Username"
+                  name="username"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                   value={formik.values.name}
