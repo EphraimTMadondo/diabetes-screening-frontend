@@ -1,8 +1,7 @@
 ## Quick start
 
-- [Download from Github](https://github.com/devias-io/material-kit-react/archive/master.zip)
-  or [Download from Devias](https://devias.io/products/material-kit-react) or clone the
-  repo: `git clone https://github.com/devias-io/material-kit-react.git`
+- [Download from Github] clone the
+  repo: `git clone https://github.com/EphraimTMadondo/diabetes-screening-frontend.git`
 
 - Make sure your Node.js and npm versions are up to date for `React 18`
 
